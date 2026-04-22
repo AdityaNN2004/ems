@@ -1,0 +1,18 @@
+# Dependencies - Handles both folders
+node_modules/
+
+# Environment Secrets - DO NOT REMOVE
+.env
+.env.local
+
+# Frontend Build Folders
+dist/
+build/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+
+# Mac/Windows system files
+.DS_Store
+Thumbs.db
