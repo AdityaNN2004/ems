@@ -10,6 +10,9 @@ import Employee from "./component/Employee/Employee";
 import AddEmployee from "./component/Employee/AddEmployee";
 import EditEmployee from "./component/Employee/EditEmployee";
 import Project from "./component/Project/Project";
+import Attendance from "./component/Attendance/Attendance";
+import AddAttendance from "./component/Attendance/AddAttendance";
+import EditAttendance from "./component/Attendance/EditAttendance";
 function App() {
   return (
     <>
@@ -22,6 +25,9 @@ function App() {
         <Route path="/emp-add" element={<AddEmployee />} />
         <Route path="/emp-edit/:id" element={<EditEmployee />} />
         <Route path="/project" element={<Project />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance-add" element={<AddAttendance />} />
+        <Route path="/attendance-edit/:id" element={<EditAttendance />} />
       </Routes>
     </>
   );
