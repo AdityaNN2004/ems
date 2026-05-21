@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { getEmps, removeEmp } from "../../services/empService";
+import SearchBar from "../../Pages/SearchBar";
 
 function Employee() {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ function Employee() {
   const getEmp = async () => {
     try {
       const response = await getEmps();
-      console.log("response ", response);
+      console.log("DATA:.... ", response.data.data);
 
       // 1. Check if the response actually contains data
       if (!response.data || response.data.length === 0) {
@@ -26,7 +27,7 @@ function Employee() {
       }
 
       // 2. If data exists, update state and show success
-      setData(response.data);
+      setData(response.data.data);
 
       if (response.status === 200) {
         toast.success("Fetched Employee Successfully !!");
@@ -60,6 +61,7 @@ function Employee() {
       <div>
         <ToastContainer position="top-right"></ToastContainer>
       </div>
+      <SearchBar/>
       <div className="container m-4">
         <button type="button" onClick={getEmp} className="m-3 btn btn-primary">
           Get Employee

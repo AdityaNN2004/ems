@@ -4,10 +4,18 @@ const deptService = require('../services/deptService')
 exports.getDept =async(req,res,next)=>{
     try{
         const depts = await deptService.getDept()
-        res.status(200).json(depts)
+        res.status(200).json({
+            success:true,
+            message:"Fetched Departments successfully!!",
+            data:depts,
+        })
     }
     catch(exception){
-        res.status(500).json({message:"Internal Server Error !!"})
+        res.status(500).json(
+            {
+                success:false,
+                message:"Internal Server Error !!",
+            })
         console.error(exception)
     }
 }
@@ -15,9 +23,16 @@ exports.getDept =async(req,res,next)=>{
 exports.createDept=async(req,res,next)=>{
     try{
         const dept = await deptService.createDept(req.body)
-        res.status(201).json({data:dept,message:"Created Department Successfully!!"})
+        res.status(201).json({
+            success:true,
+            data:dept,
+            message:"Created Department Successfully!!"
+        })
     }catch(exception){
-        res.status(500).json({message:"Internal Server Error !!"})
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error !!"
+        })
         console.error(exception)
     }
 }
@@ -27,11 +42,21 @@ exports.updateDept= async(req,res,next)=>{
         const {id} = req.params
         const updatedDept = await deptService.editDept(id,req.body)
         if(!updatedDept){
-            return res.status(404).json({message:"Department Not Found !!"})
+            return res.status(404).json({
+                success:true,
+                message:"Department Not Found !!"
+            })
         }
-        res.status(200).json(updatedDept,{message:"Department Updated Successfully !!"})
+        res.status(200).json({
+            success:true,
+            data:updatedDept,
+            message:"Department Updated Successfully !!"
+        })
     }catch(exception){
-        res.status(500).json({message:"Internal Server Error !!"})
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error !!"
+        })
         console.error(exception)
     }
 }
@@ -41,12 +66,22 @@ exports.removeDept= async(req,res,next)=>{
      const {id} = req.params
     const deletedDept = await deptService.removeDept(id)
     if(!deletedDept){
-            return res.status(404).json({message:"Department Not Found !!"})
+            return res.status(404).json({
+                success:true,
+                message:"Department Not Found !!"
+            })
     }
-    res.status(200).json({message:"Department Deleted Successfully !!"})
+    res.status(200).json({
+        success:true,
+        data:deletedDept,
+        message:"Department Deleted Successfully !!"
+    })
    }
    catch(exception){
-        res.status(500).json({message:"Internal Server Error !!"})
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error !!"
+            })
         console.error(exception)
    }
 }

@@ -3,6 +3,12 @@ import { toast } from "react-toastify"
 
 const url = 'http://127.0.0.1:5000/dept'
 
+export async function getDepartment() {
+    const response = await axios.get(url)
+    // console.log("Data: ",response.data)  
+    return response
+}
+
 export async function addDepartment(name, location, budget, hod) {
     try {
         const body = { name, location, budget, hod }

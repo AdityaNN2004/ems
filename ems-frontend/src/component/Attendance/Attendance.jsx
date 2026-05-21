@@ -5,6 +5,7 @@ import {
 } from "../../services/attendanceService";
 import { useNavigate } from "react-router";
 import { toast,ToastContainer } from "react-toastify";
+import Navbar from "../../Pages/Navbar.jsx"
 
 function Attendance() {
   const [data, setData] = useState([]);
@@ -14,11 +15,14 @@ function Attendance() {
   },[])
   const getAttendance = async () => {
     const response = await getAttendanceList();
+    const attendance = response.data.data
+    console.log("response: ",response)
+    console.log("attendance: ",attendance)
     try{
-      if (response.data && response.data.length>0) 
+      if (attendance && attendance.length>0) 
         {
           toast.success("Fetched Attendance Successfully!!");
-          setData(response.data);
+          setData(attendance);
         } else 
         {
           setData([])
@@ -50,6 +54,7 @@ function Attendance() {
   };
   return (
     <>
+    <Navbar/>
       <div>
         <ToastContainer position="top-right"></ToastContainer>
       </div>
@@ -89,10 +94,10 @@ function Attendance() {
             {data.length > 0 ? (
               data.map((dt) => (
                 <tr key={dt._id} className="text-center">
-                  <td>{dt._id}</td>
+                  <td>{dt.empId?._id || dt.empId}</td>
                   <td>{dt.date}</td>
-                  <td>{dt.checkin}</td>
-                  <td>{dt.checkout}</td>
+                  <td>{dt.checkIn}</td>
+                  <td>{dt.checkOut}</td>
                   <td>
                     <button className="btn btn-danger" onClick={() => deleteAttendance(dt)}>
                       Remove

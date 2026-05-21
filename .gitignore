@@ -1,0 +1,7 @@
+node_modules/
+ems-backend/node_modules/
+ems-frontend/node_modules/
+ems-backend/.env
+ems-backend/backend.zip
+*.zip
+.env

@@ -1,13 +1,45 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 const deptSchema = new mongoose.Schema(
-    {
-
-        name : { type : String, required : true },
-        location : { type : String, required : true },
-        budget : {type: Number, required:true},
-        hod : { type : String, required:true}
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true
     },
-    {timestamps:true}
-)
 
-module.exports = mongoose.model("Dept",deptSchema)
+    location: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    budget: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+
+    headOfDept: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Emp'
+    },
+
+    description: {
+      type: String,
+      default: ''
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true
+    }
+  },
+  { timestamps: true }
+);
+
+// Index for faster lookup
+
+
+module.exports = mongoose.model('Dept', deptSchema);

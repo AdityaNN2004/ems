@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { removeDepartment } from "../../services/deptService";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { removeDepartment, getDepartment } from "../../services/deptService";
+// import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 function Department() {
-  const [data, setData] = useState([]);
+  const [department, setDepartment] = useState([]);
   const navigate = useNavigate();
   const addDept = async () => {
     navigate("/dept-add");
   };
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://127.0.0.1:5000/dept");
-      setData(response.data);
-    } catch (exception) {
-      console.error(exception.message);
-      toast.error(exception.message);
-    }
+
+  useEffect(() => {
+    getDepts();
+  }, []);
+  const getDepts = async () => {
+    const response = await getDepartment();
+    const departments = response.data.data;
+    // console.log("Department.jsx: ", departments);
+    setDepartment(departments);
   };
 
   const editData = (dept) => {
@@ -33,18 +34,13 @@ function Department() {
     }
   };
 
-  fetchData();
   return (
     <>
       <div>
         <ToastContainer position="top-right"></ToastContainer>
       </div>
       <div className="container m-4">
-        <button
-          type="button"
-          onClick={fetchData}
-          className="m-3 btn btn-primary"
-        >
+        <button type="button" className="m-3 btn btn-primary">
           Get Departments
         </button>
         <button type="button" onClick={addDept} className="m-3 btn btn-primary">
@@ -61,20 +57,18 @@ function Department() {
               <th scope="col">Name</th>
               <th scope="col">Location</th>
               <th scope="col">Budget</th>
-              <th scope="col">HOD</th>
               <th scope="col" colSpan={2}>
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((dt) => {
+            {department.map((dt) => {
               return (
                 <tr key={dt._id} className="text-center">
                   <td>{dt.name}</td>
                   <td>{dt.location}</td>
                   <td>{dt.budget}</td>
-                  <td>{dt.hod}</td>
                   <td>
                     <div className="d-flex justify-content-center">
                       <button

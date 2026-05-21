@@ -3,14 +3,14 @@ import { getProjects } from '../../services/projectService'
 import { toast,ToastContainer } from 'react-toastify'
 
 function Project() {
-    const [data,setData] = useState([])
+    const [project,setProject] = useState([])
     const getProject = async()=>{
         try{
             const response = await getProjects()
-            const projectList = response.data.project || response.data
-            setData(projectList)
+            const projectList = response.data.data
+            setProject(projectList)
             toast.success("Fetched Data Successfully!!")
-            console.log("Data from server: ",response)
+            // console.log("Data from server: ",response)
         }catch(error){
             toast.error("Error While Fetching Data......")
             console.log("Exception: ",error)
@@ -47,7 +47,7 @@ function Project() {
                 </tr>
             </thead>
             <tbody>
-                {data.map((dt) => {
+                {project.map((dt) => {
                 return (
                     <tr key={dt._id} className="text-center">
                     <td>{dt.name}</td>
